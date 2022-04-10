@@ -1,0 +1,35 @@
+.container {
+  display: flex;
+  margin: 0 auto;
+  height: 48px;
+  width: 100%;
+  max-width: 360px;
+  border-radius: 8px;
+  border: 1px solid var(--primary-color);
+  overflow: hidden;
+  padding: 0 16px;
+}
+
+.icon,
+.input {
+  vertical-align: middle;
+  color: var(--primary-color);
+}
+
+.input {
+  height: 100%;
+  box-sizing: border-box;
+  width: 100%;
+  border: none;
+  background: transparent;
+}
+
+.button {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.icon {
+  font-size: 24px;
+}

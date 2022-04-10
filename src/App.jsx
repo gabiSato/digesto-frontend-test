@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import SearchPage from "./pages/SearchPage/SearchPage";
+import SearchPage from "./pages/SearchPage";
 
 const App = () => {
   return (
@@ -10,6 +10,6 @@ const App = () => {
       </Routes>
     </BrowserRouter>
   );
-}
+};
 
 export default App;
