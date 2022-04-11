@@ -4,16 +4,22 @@ import { MdSearch } from "react-icons/md";
 
 import styles from "./styles.module.css";
 
-const SearchBar = () => {
+const SearchBar = ({ value, placeholder, onInputChange, onSubmit }) => {
+  const handleChange = (event) => {
+    onInputChange(event.target.value);
+  };
+
   return (
     <div className={styles.container}>
       <input
         className={styles.input}
         type="text"
-        placeholder="0019600-40.2007.5.15.0124"
+        placeholder={placeholder}
+        value={value}
+        onChange={handleChange}
       />
 
-      <button className={styles.button}>
+      <button className={styles.button} onClick={onSubmit}>
         <MdSearch className={styles.icon} />
       </button>
     </div>
