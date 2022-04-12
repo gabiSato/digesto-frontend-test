@@ -1,16 +1,29 @@
 import React from "react";
 
 import { MdSearch } from "react-icons/md";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 import styles from "./styles.module.css";
 
-const SearchBar = ({ value, placeholder, onInputChange, onSubmit }) => {
+const SearchBar = ({
+  value,
+  placeholder,
+  onInputChange,
+  onSubmit,
+  isLoading = false,
+}) => {
   const handleChange = (event) => {
     onInputChange(event.target.value);
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    onSubmit();
+  };
+
   return (
-    <div className={styles.container}>
+    <form className={styles.container} onSubmit={handleSubmit}>
       <input
         className={styles.input}
         type="text"
@@ -19,10 +32,14 @@ const SearchBar = ({ value, placeholder, onInputChange, onSubmit }) => {
         onChange={handleChange}
       />
 
-      <button className={styles.button} onClick={onSubmit}>
-        <MdSearch className={styles.icon} />
-      </button>
-    </div>
+      {isLoading ? (
+        <AiOutlineLoading3Quarters className={styles.loader} />
+      ) : (
+        <button type="submit" className={styles.button}>
+          <MdSearch className={styles.icon} />
+        </button>
+      )}
+    </form>
   );
 };
 

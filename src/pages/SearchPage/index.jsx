@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import DigestoLogo from "../../assets/images/digesto-logo.png";
 
@@ -7,7 +8,8 @@ import styles from "./styles.module.css";
 import useSearch from "./hook";
 
 const SearchPage = () => {
-  const { state, action } = useSearch();
+  let navigate = useNavigate();
+  const { state, action } = useSearch(navigate);
 
   return (
     <div className={styles.container}>
@@ -21,6 +23,7 @@ const SearchPage = () => {
 
       <SearchBar
         value={state.cnj}
+        isLoading={state.isLoading}
         onInputChange={action.setCnj}
         onSubmit={action.searchProcess}
         placeholder="0000000-00.0000.0.00.0000"
