@@ -8,9 +8,11 @@ import "./styles/main.css";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
 
-axios.defaults.headers.common['Authorization'] = `${process.env.REACT_APP_AUTH_METHOD} ${process.env.REACT_APP_API_TOKEN}`;
+axios.defaults.headers.common[
+  "Authorization"
+] = `${process.env.REACT_APP_AUTH_METHOD} ${process.env.REACT_APP_API_TOKEN}`;
 
-axios.defaults.headers.post['Content-Type'] = 'application/json';
+axios.defaults.headers.post["Content-Type"] = "application/json";
 
 const container = document.getElementById("root");
 
