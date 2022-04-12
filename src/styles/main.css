@@ -1,7 +1,9 @@
 :root {
   --primary-color: #920606;
-  --grey: #484848;
-  --dark-grey: #222;
+  --gray: #484848;
+  --light-gray: #e5e7eb;
+  --dark-gray: #222;
+  --placeholder: #9ca3af;
 }
 
 *,
@@ -10,7 +12,7 @@
   box-sizing: border-box;
   border-width: 0;
   border-style: solid;
-  border-color: #e5e7eb;
+  border-color: var(--light-gray);
 }
 
 html {
@@ -124,7 +126,7 @@ textarea {
 input::placeholder,
 textarea::placeholder {
   opacity: 1;
-  color: #9ca3af;
+  color: var(--placeholder);
 }
 
 :disabled {

@@ -9,28 +9,36 @@ class ProcessProvider extends React.PureComponent {
 
     this.state = {
       process: null,
-      isLoading: false
+      isLoading: false,
     };
   }
 
-  getProcess = async (cnj = "") => {
+  getProcess = (cnj = "") => {
     const endpoint = `/tribproc/${cnj}?tipo_numero=8`;
 
-    axios.get(endpoint)
-      .then(response => {
-        if (response.data?.status_op) return
+    this.setState({ isLoading: true });
 
-        console.log(response?.data)
-      })
-      .catch(error => { console.log(error.response) });
+    return new Promise((resolve, reject) => {
+      axios
+        .get(endpoint)
+        .then((response) => {
+          if (response.data?.status_op) reject(response.data.status_op);
+
+          this.setState({ process: response?.data }, resolve);
+        })
+        .catch(reject)
+        .finally(() => {
+          this.setState({ isLoading: false });
+        });
+    });
   };
 
   render() {
     const value = {
       state: this.state,
       action: {
-        getProcess: this.getProcess
-      }
+        getProcess: this.getProcess,
+      },
     };
 
     return (
