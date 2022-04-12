@@ -1,9 +1,16 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+
+import { ProcessContext } from "../../contexts/ProcessContext";
 
 function useSearch() {
+
+  const { state, action: { getProcess } } = useContext(ProcessContext);
+
   const [cnj, setCnj] = useState("");
 
-  const searchProcess = () => {};
+  const searchProcess = () => {
+    getProcess(cnj);
+  };
 
   return {
     state: { cnj },
