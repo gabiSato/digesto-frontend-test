@@ -1,0 +1,39 @@
+$dark-red: #920606;
+$gray: #484848;
+$light-gray: #e5e7eb;
+$dark-gray: #222;
+$placeholder: #9ca3af;
+
+$primary: $dark-red;
+
+@import "~bulma/bulma";
+
+.placeholder-mixin {
+  @include placeholder {
+    color: $placeholder;
+  }
+}
+
+.field.has-addons {
+  border: 1px solid $primary;
+  border-radius: 4px;
+
+  .control * {
+    border: transparent;
+    box-shadow: none;
+  }
+
+  .button {
+    &.is-loading {
+      border: transparent;
+    }
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
+
+.-white-space-nowrap {
+  white-space: nowrap;
+}

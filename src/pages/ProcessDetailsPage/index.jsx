@@ -17,7 +17,7 @@ const ProcessDetailsPage = () => {
   }, []);
 
   return (
-    <div className="container">
+    <div className="container is-max-widescreen">
       <h1 className="title is-4">
         {process?.tribunal} - Nº {process?.numero}
       </h1>

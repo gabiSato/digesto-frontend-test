@@ -1,9 +1,8 @@
 import React from "react";
 
 import { MdSearch } from "react-icons/md";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
-import styles from "./styles.module.css";
+import styles from "./styles.module.scss";
 
 const SearchBar = ({
   value,
@@ -23,22 +22,28 @@ const SearchBar = ({
   };
 
   return (
-    <form className={styles.container} onSubmit={handleSubmit}>
-      <input
-        className={styles.input}
-        type="text"
-        placeholder={placeholder}
-        value={value}
-        onChange={handleChange}
-      />
+    <form onSubmit={handleSubmit}>
+      <div className="field has-addons">
+        <div className="control is-medium is-expanded">
+          <input
+            className="input is-primary is-medium placeholder-mixin"
+            type="text"
+            placeholder={placeholder}
+            onChange={handleChange}
+          />
+        </div>
 
-      {isLoading ? (
-        <AiOutlineLoading3Quarters className={styles.loader} />
-      ) : (
-        <button type="submit" className={styles.button}>
-          <MdSearch className={styles.icon} />
+        <button
+          type="submit"
+          className={`button is-medium is-rounded is-inverted ${
+            isLoading ? "is-loading" : "is-primary"
+          }`}
+        >
+          <span className={`icon ${isLoading ? "is-hidden" : ""}`}>
+            <MdSearch className={styles.icon} />
+          </span>
         </button>
-      )}
+      </div>
     </form>
   );
 };
