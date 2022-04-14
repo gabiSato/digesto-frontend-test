@@ -4,11 +4,15 @@ import { useNavigate } from "react-router-dom";
 import DigestoLogo from "../../assets/images/digesto-logo.png";
 
 import SearchBar from "./components/SearchBar";
-import styles from "./styles.module.css";
+import Message from "./components/Message";
+
 import useSearch from "./hook";
+
+import styles from "./styles.module.css";
 
 const SearchPage = () => {
   let navigate = useNavigate();
+
   const { state, action } = useSearch(navigate);
 
   return (
@@ -25,10 +29,12 @@ const SearchPage = () => {
 
           <div className="columns is-mobile is-centered">
             <div className="column is-12-mobile is-8-tablet is-5-desktop is-centered">
-              <div className="column notification mb-4">
-                <button className="delete"></button>
-                Produto não encontrado
-              </div>
+              {state.showMessage && (
+                <Message
+                  message={state?.statusMessage}
+                  type={state.isError ? "danger" : ""}
+                />
+              )}
 
               <SearchBar
                 value={state.cnj}

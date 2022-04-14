@@ -1,25 +1,28 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
-import { ProcessContext } from "../../contexts/ProcessContext";
+import { ProcessContext, STATUS } from "../../contexts/ProcessContext";
 
 function useSearch(navigate) {
   const {
-    state,
+    state: { status, statusMessage },
     action: { getProcess },
   } = useContext(ProcessContext);
 
   const [cnj, setCnj] = useState("");
 
-  const searchProcess = () => {
-    getProcess(cnj)
-      .then(() => {
-        navigate(`/processo/${cnj}`);
-      })
-      .catch(() => {});
-  };
+  const searchProcess = () => getProcess(cnj);
+
+  useEffect(() => {
+    if (status === STATUS.SUCCESS) navigate(`/processo/${cnj}`);
+  }, [status]);
 
   return {
-    state: { cnj, isLoading: state.isLoading },
+    state: {
+      cnj,
+      isLoading: status === STATUS.LOADING,
+      showMessage: status === STATUS.NO_RESULT || status === STATUS.ERROR,
+      statusMessage,
+    },
     action: {
       setCnj,
       searchProcess,

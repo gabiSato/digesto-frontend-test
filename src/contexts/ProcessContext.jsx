@@ -3,34 +3,54 @@ import axios from "axios";
 
 const ProcessContext = React.createContext({});
 
+export const STATUS = {
+  IDLE: "IDLE",
+  LOADING: "LOADING",
+  SUCCESS: "SUCCESS",
+  NO_RESULT: "NO_RESULT",
+  ERROR: "ERROR",
+};
+
 class ProcessProvider extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
       process: null,
-      isLoading: false,
+      status: STATUS.IDLE,
+      statusMessage: null,
     };
   }
+
+  onSuccess = (process) => {
+    this.setState({ process, status: STATUS.SUCCESS, statusMessage: null });
+  };
+
+  onNoResult = (statusMessage) => {
+    this.setState({ process: null, status: STATUS.NO_RESULT, statusMessage });
+  };
+
+  onError = () => {
+    this.setState({
+      process: null,
+      status: STATUS.ERROR,
+      statusMessage: "Algum erro ocorreu. Tente novamente mais tarde.",
+    });
+  };
 
   getProcess = (cnj = "") => {
     const endpoint = `/tribproc/${cnj}?tipo_numero=8`;
 
-    this.setState({ isLoading: true });
+    this.setState({ status: STATUS.LOADING });
 
-    return new Promise((resolve, reject) => {
-      axios
-        .get(endpoint)
-        .then((response) => {
-          if (response.data?.status_op) reject(response.data.status_op);
-
-          this.setState({ process: response?.data }, resolve);
-        })
-        .catch(reject)
-        .finally(() => {
-          this.setState({ isLoading: false });
-        });
-    });
+    return axios
+      .get(endpoint)
+      .then((response) => {
+        response.data?.status_op
+          ? this.onNoResult(response.data?.status_op)
+          : this.onSuccess(response?.data);
+      })
+      .catch(this.onError);
   };
 
   render() {
